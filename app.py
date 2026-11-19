@@ -5,8 +5,8 @@ Supports per-user memory and profile via username login.
 """
 
 import gradio as gr
-from agent.retrieval.rag import RAGPipeline
-from agent.profile.schema import UserProfile
+from system.retrieval.rag import RAGPipeline
+from system.profile.schema import UserProfile
 
 
 def login(username: str) -> tuple:
@@ -64,15 +64,6 @@ def respond(message: str, history: list, pipeline: RAGPipeline, username: str) -
 
 with gr.Blocks(
     title="Conversational Agent",
-    css="""
-        .generating { display: none !important; }
-        .eta-bar { display: none !important; }
-        .progress-text { display: none !important; }
-        .eta-text { display: none !important; }
-        span.time { display: none !important; }
-        .meta-text { display: none !important; }
-        .meta-text-center { display: none !important; }
-    """,
 ) as demo:
     # State
     pipeline_state = gr.State(None)
@@ -135,4 +126,12 @@ with gr.Blocks(
     )
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(css="""
+    .generating { display: none !important; }
+    .eta-bar { display: none !important; }
+    .progress-text { display: none !important; }
+    .eta-text { display: none !important; }
+    span.time { display: none !important; }
+    .meta-text { display: none !important; }
+    .meta-text-center { display: none !important; }
+    """,)
