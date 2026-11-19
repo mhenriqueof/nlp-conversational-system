@@ -206,7 +206,7 @@ pip install -r requirements.txt
 ### Configure Environment
 Create a `.env` file in the root folder:
 ```env
-HF_TOKEN=your_huggingface_token_here
+GROQ_API_KEY=your_groq_token_here
 ```
 
 ### Run Locally
