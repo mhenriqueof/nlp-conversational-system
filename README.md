@@ -1,13 +1,13 @@
-# Conversational Agent
-A multi-user conversational agent with persistent episodic memory, dynamic user profiling and
+# Conversational System
+A multi-user conversational system with persistent episodic memory, dynamic user profiling and
 semantic retrieval. Built with Hugging Face Inference API, sentence-transformers, ChromaDB and Gradio.
 
-**[Try it on Hugging Face Spaces - No account required](https://huggingface.co/spaces/mhenriqueof/conversational-agent)** <br>
+**[Try it on Hugging Face Spaces - No account required](https://huggingface.co/spaces/mhenriqueof/conversational-system)** <br>
 [If you see "***This Space is sleeping due to inactivity.***", click on `Restart this Space`]
 
 
 ## Objective
-The goal of this project was to build a conversational agent that goes beyond a simple chatbot by
+The goal of this project was to build a conversational system that goes beyond a simple chatbot by
 integrating NLP concepts I have recently studied (RAG, LLM, HF) into a real, deployed system.
 
 The project was also an opportunity to practice software engineering principles, including modular design,
@@ -23,7 +23,7 @@ Instead of relying solely on the LLM's context window for memory, the system uti
 * LLM-based extraction for dynamic user profiling
 * Per-user isolation for multi-user support
 
-The agent remembers past interactions, builds a structured model of each user and adjusts responses
+The system remembers past interactions, builds a structured model of each user and adjusts responses
 accordingly.
 
 
@@ -101,7 +101,7 @@ $$
 \text{sim}(q, e_i) = \frac{\vec{q} \cdot \vec{e_i}}{|\vec{q}|\ |\vec{e_i}|}
 $$
 
-These episodes are injected into the prompt as context, enabling the agent to "remember".
+These episodes are injected into the prompt as context, enabling the system to "remember".
 
 ### Dynamic User Profile
 After each interaction, the LLM extracts structured information from the user's message:
@@ -116,7 +116,7 @@ After each interaction, the LLM extracts structured information from the user's 
 ```
 
 New information is **merged** into the existing profile without overwriting previous data.
-The profile is injected into every prompt, giving the agent a stable model of who it's talking to.
+The profile is injected into every prompt, giving the system a stable model of who it's talking to.
 
 ### Prompt Structure
 
@@ -129,8 +129,8 @@ Interests: AI, Math, ESO,
 Goals: become an AI engineer, finish graduation
 
 [Relevant memories from past interactions]
-- User: I love chess / Agent: Chess is a great game!
-- User: I'm studying NLP / Agent: That's exciting!
+- User: I love chess / System: Chess is a great game!
+- User: I'm studying NLP / System: That's exciting!
 
 User: <current message>
 ```
@@ -161,7 +161,7 @@ User: <current message>
 
 ## Project Structure
 ```
-nlp-conversational-agent/
+nlp-conversational-system/
 ├── agent/
 │   ├── llm/
 │   │   ├── client.py   # HF Inference API client
@@ -188,8 +188,8 @@ nlp-conversational-agent/
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/mhenriqueof/nlp-conversational-agent.git
-cd nlp-conversational-agent
+git clone https://github.com/mhenriqueof/nlp-conversational-system.git
+cd nlp-conversational-system
 ```
 
 ### Create Virtual Environment
@@ -218,7 +218,7 @@ py app.py
 ## Usage
 1. Open the app in your browser
 2. Enter a username to start your personal session
-3. Start chatting, the agent will remember you across sessions
+3. Start chatting, the system will remember you across sessions
 4. Watch your profile being built in real time on the right panel
 
 
