@@ -1,5 +1,5 @@
 """
-Gradio UI for the Conversational Agent.
+Gradio UI for the Conversational System.
 Entry point for HuggingFace Spaces deployment.
 Supports per-user memory and profile via username login.
 """
@@ -63,15 +63,15 @@ def respond(message: str, history: list, pipeline: RAGPipeline, username: str) -
 
 
 with gr.Blocks(
-    title="Conversational Agent",
+    title="Conversational System",
 ) as demo:
     # State
     pipeline_state = gr.State(None)
 
     # Header
-    gr.Markdown("# Conversational Agent")
+    gr.Markdown("# Conversational System")
     gr.Markdown(
-        "A conversational agent with persistent memory and dynamic user profile."
+        "A conversational system with persistent memory and dynamic user profile."
     )
 
     # Login screen
