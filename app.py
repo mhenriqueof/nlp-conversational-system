@@ -1,12 +1,12 @@
 """
-Gradio UI for the Conversational Agent.
+Gradio UI for the Conversational System.
 Entry point for HuggingFace Spaces deployment.
 Supports per-user memory and profile via username login.
 """
 
 import gradio as gr
-from agent.retrieval.rag import RAGPipeline
-from agent.profile.schema import UserProfile
+from system.retrieval.rag import RAGPipeline
+from system.profile.schema import UserProfile
 
 
 def login(username: str) -> tuple:
@@ -63,24 +63,15 @@ def respond(message: str, history: list, pipeline: RAGPipeline, username: str) -
 
 
 with gr.Blocks(
-    title="Conversational Agent",
-    css="""
-        .generating { display: none !important; }
-        .eta-bar { display: none !important; }
-        .progress-text { display: none !important; }
-        .eta-text { display: none !important; }
-        span.time { display: none !important; }
-        .meta-text { display: none !important; }
-        .meta-text-center { display: none !important; }
-    """,
+    title="Conversational System",
 ) as demo:
     # State
     pipeline_state = gr.State(None)
 
     # Header
-    gr.Markdown("# Conversational Agent")
+    gr.Markdown("# Conversational System")
     gr.Markdown(
-        "A conversational agent with persistent memory and dynamic user profile."
+        "A conversational system with persistent memory and dynamic user profile."
     )
 
     # Login screen
@@ -135,4 +126,12 @@ with gr.Blocks(
     )
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(css="""
+    .generating { display: none !important; }
+    .eta-bar { display: none !important; }
+    .progress-text { display: none !important; }
+    .eta-text { display: none !important; }
+    span.time { display: none !important; }
+    .meta-text { display: none !important; }
+    .meta-text-center { display: none !important; }
+    """,)

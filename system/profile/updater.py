@@ -4,8 +4,8 @@ automatically using the LLM.
 """
 
 import json
-from agent.llm.client import LLMClient
-from agent.profile.schema import UserProfile
+from system.llm.client import LLMClient
+from system.profile.schema import UserProfile
 
 
 class ProfileUpdater:
@@ -27,7 +27,9 @@ class ProfileUpdater:
         self, user_message: str, profile: UserProfile, username: str
     ) -> UserProfile:
         """
-        Extracts from information from a message and updates the profile.
+        Extracts information from a message and updates the profile.
+        If extraction fails for any reason, returns the profile unchanged
+        so the chat flow is never interrupted.
 
         Args:
             user_message: The current message from the user.
@@ -35,7 +37,7 @@ class ProfileUpdater:
             username: The username used to identify the profile file.
 
         Returns:
-            An updated UserProfile instance.
+            An updated UserProfile instance, or the original one on failure.
         """
         extraction_prompt = f"""
 You are an information extraction assistant.
@@ -55,15 +57,23 @@ Rules:
 User message: "{user_message}"
 """
 
-        raw = self._llm.generate_response(extraction_prompt)
+        try:
+            raw = self._llm.generate_response(
+                extraction_prompt,
+                model="openai/gpt-oss-20b",
+                max_new_tokens=256,
+            )
+        except Exception as e:
+            # Extraction is a best-effort side task: never let it break the chat.
+            print(f"[ProfileUpdater] Extraction call failed, skipping update: {e}")
+            return profile
 
         try:
-            # Clean possible markdown fences
             cleaned = (
                 raw.strip()
                 .removeprefix("```json")
                 .removeprefix("```")
-                .removesuffix("````")
+                .removesuffix("```")
                 .strip()
             )
             extracted = json.loads(cleaned)

@@ -2,12 +2,12 @@
 Responsible for building structured prompts for the LLM.
 """
 
-from agent.profile.schema import UserProfile
+from system.profile.schema import UserProfile
 
 
 def build_prompt(
     user_message: str,
-    memory_context: list[str] = [],
+    memory_context: list[str] | None = None,
     profile: UserProfile | None = None,
 ) -> str:
     """

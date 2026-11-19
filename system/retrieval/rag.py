@@ -5,11 +5,11 @@ conversational flow.
 Each pipeline instance is scoped to a specific user.
 """
 
-from agent.memory.embedder import embed_text
-from agent.memory.store import MemoryStore
-from agent.llm.client import LLMClient
-from agent.profile.schema import UserProfile
-from agent.profile.updater import ProfileUpdater
+from system.memory.embedder import embed_text
+from system.memory.store import MemoryStore
+from system.llm.client import LLMClient
+from system.profile.schema import UserProfile
+from system.profile.updater import ProfileUpdater
 
 
 class RAGPipeline:
